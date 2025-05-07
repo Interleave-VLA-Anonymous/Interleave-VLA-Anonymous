@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions</title>
+  <meta name="description" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions">
+  <meta name="keywords" content="Interleave-VLA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions">
+  <meta property="og:image" content="https://interleave-vla-anonymous.github.io/Interleave-VLA-Anonymous/static/images/teaser.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1939" />
+  <meta property="og:image:height" content="772" />
+  <meta property="og:url" content="https://interleave-vla-anonymous.github.io/Interleave-VLA-Anonymous/" />
+  <meta property="og:description" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions" />
+  <meta name="twitter:title" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions" />
+  <meta name="twitter:description" content="Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions" />
+  <meta name="twitter:image" content="https://anonymous-openvla.github.io/static/images/teaser.png" />
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Interleave-VLA: Enhancing Robot Manipulation with Interleaved Image-Text Instructions</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser teaser-video">
+    <div class="container is-max-desktop has-text-centered">
+      <div class="hero-body">
+        <video id="teaser" controls autoplay playsinline width="80%">
+          <source src="static/videos/interleave_vla_teaser_video.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src=""
+                type="video/mp4">
+      </video> -->
+
+        <img src="static/images/interleave_vla_teaser.jpg" />
+
+        <h2 class="subtitle has-text-centered">
+          We introduce Interleave-VLA, the first vision-language-action (VLA) framework capable of understanding interleaved image-text instructions and directly generating continuous action sequences in the physical world. It offers a flexible, model-agnostic paradigm that extends state-of-the-art VLA models with minimal modifications and strong zero-shot generalization, achieving 2-3× better out-of-domain generalization to unseen objects compared to the base VLA model from which it is adapted. Moreover, it supports flexible task interfaces and robustly handles diverse user-provided image instructions—including hand-drawn sketches—right out of the box. Through comprehensive evaluations on both simulated and real-robot platforms, we demonstrate Interleave-VLA's strong generalization and scalability, underscoring its promise for advancing multimodal robot learning.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve has-text-centered">
+            <video poster="" id="steve video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/bridge_pick_clutter_2.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Bridge Put Corn on Plate</p>
+          </div>
+          <div class="item item-chair-tp has-text-centered">
+            <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/franka_pour_corn.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Pour Corn in Pot (4x)</p>
+          </div>
+          <div class="item item-chair-tp has-text-centered">
+            <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/wipe_ood_4x.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Wipe Table (4x)</p>
+          </div>
+          <div class="item item-fullbody has-text-centered">
+            <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/bridge_pick_clutter.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Bridge Put Eggplant in Bowl</p>
+          </div>
+          <div class="item item-shiba has-text-centered">
+            <video poster="" id="shiba video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/franka_cover.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Cover Pink Bowl (4x)</p>
+          </div>
+          <div class="item item-fullbody has-text-centered">
+            <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/wipe_ood_2_4x.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Wipe Table (4x)</p>
+          </div>
+          <div class="item item-fullbody has-text-centered">
+            <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/bridge_stack.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Bridge Stack Cups (2x)</p>
+          </div>
+          <div class="item item-fullbody has-text-centered">
+            <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/franka_flip_pot.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Flip Pot (4x)</p>
+          </div>
+          <div class="item item-fullbody has-text-centered">
+            <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+              <source src="static/videos/franka_knock.mp4" type="video/mp4">
+            </video>
+            <p id="overlay">Franka Knock over Yellow Pony (2x)</p>
+          </div>
+        </div>
+        <br>
+        <p class="has-text-centered">(WidowX videos depict out-of-the-box OpenVLA model deployment; Franka Panda videos show fine-tuned OpenVLA policies.)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+    </div>
+  </section> -->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Interleave-VLA and Interleaved X-Embodiment Dataset</h2>
+          <div class="content has-text-justified has-text-centered">
+            <div style="display: flex; justify-content: center; gap: 50px;">
+              <img src="static/images/interleave_vla_model.jpg" style="width: 50%; height: 50%; margin: auto; display: block;"/>
+              <img src="static/images/interleaved_embodiment_dataset.jpg" style="width: 60%"/>
+            </div>
+            <p>
+              <b>Left</b>: Interleave-VLA is a straightforward yet effective adaptation of existing VLA models. It modifies the input format to accept interleaved image and text tokens, without changing the core model architecture. We demonstrate this approach by adapting two state-of-the-art VLA models. For <a href="https://www.physicalintelligence.company/blog/pi0">&pi;<sub>0</sub></a>, we retain the original architecture and only adjust the input pipeline to handle interleaved tokens. Notably, even though VLM backbone Paligemma is not trained on interleaved data, Interleave-&pi;<sub>0</sub> can still effectively process interleaved instructions. For <a href="https://openvla.github.io/">OpenVLA</a>, we replace the original Prismatic backbone with InternVL2.5, which natively supports image-text interleaved inputs. Experiments show that this model-agnostic adaptation requires minimal changes in architecture and significantly enhances the zero-shot generalization capabilities of base VLAs.
+            </p>
+            <p>
+              <b>Right</b>: To train Interleave-VLA, we curate Interleaved X-Embodiment dataset of 210k robot manipulation trajectories from the <a href="https://robotics-transformer-x.github.io/">Open X-Embodiment dataset</a> using a streamlined three-step process: (1) Use LLMs to extract key objects from instructions; (2) Apply OWLv2 for open-vocabulary object detection and cropping; (3) Use QwenVL to verify results and, if needed, refine segmentation with Segment Anything. The dataset covers diverse objects, tasks, and robot embodiments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-3">Experiments</h2>
+
+                <h3 class="title is-4">In-Domain and Out-of-Domain Evaluations on Multiple Robot Platforms</h3>
+                <img src="static/images/all_results.jpg" />
+                <div class="content has-text-justified">
+
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <p>
+                        We comprehensively evaluate Interleave-VLA's generalization capabilities in both in-domain and out-of-domain scenarios, spanning simulated and real-world robot platforms. Our experiments cover three distinct setups: the SIMPLER WidowX, VIMA-Bench UR5, and real-world FANUC robots. For each setting, we design a range of out-of-domain challenges with varying difficulty levels. Across all benchmarks, Interleave-VLA consistently generalizes better than base VLAs that rely solely on textual instructions, achieving <b>2-3x higher performance</b>. These results highlight the effectiveness of interleaved image-text adaptation as a promising strategy for enhancing the generalizability of robot manipulation through multimodal learning. For more detailed qualitative insights, please refer to the following sections: <b>Sample Interleave-VLA Rollout Videos</b> and <b>Comparisons with State-of-the-Art Models</b>.
+                      </p>
+                    </tr>
+                  </table>
+                </div>
+
+                <br>
+                <h3 class="title is-4">Task Flexibility and Emergent Generalization</h3>
+                
+                <div class="content has-text-justified">
+                  <img src="static/images/emergent_generalization_results.jpg" />
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <p>
+                        In addition to the out-of-domain generalization setting commonly used to evaluate current VLAs, Interleave-VLA demonstrates an impressive emergent capability: it enables users to flexibly specify instructions in a completely <b>zero-shot manner</b>, without requiring any additional finetuning on unseen input modalities. Instructions can be in diverse formats, including: (1) Cropped Image Instructions: Users can directly crop a region from the screen to indicate the target object. (2) Internet Image Instructions: Users may supply any image—such as a photo retrieved from the Internet—to represent the desired object. (3) Hand-Drawn Sketch Instructions: Users can draw sketches or cartoons about the objects. The consistently high accuracy demonstrates that Interleave-VLA can
+                        robustly interpret and execute visually grounded instructions, showing strong potential for flexible
+                        and practical human-robot interaction. Qualitative demonstrations can be found in the following section: <b>Sample Interleave-VLA Rollout Videos > Task Flexibility and Emergent Generalization Rollouts</b>.
+                      </p>
+                    </tr>
+                  </table>
+                  
+                </div>
+
+              <br>
+              <br>
+
+              <h3 class="title is-4">Sample Interleave-VLA Rollout Videos</h3>
+                <div class="content has-text-justified">
+                  <p>
+                    The following videos showcase Interleave-VLA's zero-shot generalization capabilities in handling unseen objects and environments. They also highlight the model's versatility across a broad spectrum of manipulation tasks.
+                  </p>
+                </div>
+                <h4 class="title is-6">SIMPLER WidowX Rollouts</h4>
+
+                <div class="content has-text-justified">
+                  <p>In SIMPLER WidowX, Interleave-VLA maintains strong performance in unseen environments.</p>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5>Put Spoon on Towel, Dynamic Lighting</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--spoon_on_towel_unseen_lighting.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Spoon on Towel, Unseen Tablecloth</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--spoon_on_towel_unseen_tablecloth.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Spoon on Towel, Unseen Env</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--spoon_on_towel_unseen_environment.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+
+                <div class="content has-text-justified">
+                  <p>Interleave-VLA robustly generalizes to unseen objects from seen categories.</p>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5>Put Redbull on Plate</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--redbull_on_plate.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Tennis Ball in Basket</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--tennis_in_basket.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Zucchini on Plate</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--zucchini_on_plate.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+
+                <div class="content has-text-justified">
+                  <p>Interleave-VLA effectively adapts to entirely novel object categories.</p>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5>Put Tape Measure in Basket</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--tape_measure_in_basket.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Toy Dinosaur on Towel</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--toy_dinosaur_on_towel.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5>Put Stapler on Paper Pile</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/qualitative_results/bridge_widowx/interleave_vla--stapler_on_paper.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+
+                <br>
+                <h4 class="title is-6">VIMA-Bench UR5 Rollouts</h4>
+                  <div class="content has-text-justified">
+                    <p>In VIMA-Bench, Interleave-VLA demonstrates strong versatility across a wide range of tasks, and robustly generalizes to novel object positions, textures, and shapes.</p>
+                  </div>
+                  <div class="columns is-vcentered interpolation-panel">
+                    <div class="column  has-text-centered">
+                      <h5>Put <img src="static/images/vima_bench_rollout/task1_red_and_white_block.jpg" alt="Red and White Block" style="height: 1.5em; vertical-align: middle; display: inline-block;"> into <img src="static/images/vima_bench_rollout/task1_purple_box.jpg" alt="Purple Box" style="height: 1.5em; vertical-align: middle; display: inline-block;"></h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task1.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Put the red swirl object in <img src="static/images/vima_bench_rollout/task2_bowl_and_block.png" alt="Red Swirl And Bowl" style="height: 1.5em; vertical-align: middle; display: inline-block;"> into the purple object</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task2.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Rotate <img src="static/images/vima_bench_rollout/task3_black_and_white_heart.jpg" alt="Black And White Heart" style="height: 1.5em; vertical-align: middle; display: inline-block;"> 120 degrees</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task3.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="columns is-vcentered interpolation-panel">
+                    <div class="column  has-text-centered">
+                      <h5>Rearrange to this <img src="static/images/vima_bench_rollout/task4_target_arrangement.jpg" alt="Target Arrangement" style="height: 1.5em; vertical-align: middle; display: inline-block;"></h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task4.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>This is a dax <img src="static/images/vima_bench_rollout/task7_dax.jpg" alt="Dax" style="height: 1.5em; vertical-align: middle; display: inline-block;">. This is a blicket <img src="static/images/vima_bench_rollout/task7_blicket.jpg" alt="Blicket" style="height: 1.5em; vertical-align: middle; display: inline-block;">. Put a blicket into a dax</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task7.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Stack objects in this order <img src="static/images/vima_bench_rollout/task11_order.jpg" alt="Order" style="height: 1.5em; vertical-align: middle; display: inline-block;"></h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/vima_bench/interleave_vla--task11.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                
+                <br>
+                <h4 class="title is-6">Real-World FANUC Rollouts</h4>
+                  <div class="content has-text-justified">
+                    <p>On the real-world FANUC robotic arm, Interleave-VLA demonstrates robust performance in both lifting and pick-and-place tasks, and reliably generalizes to previously unseen kitchen tools and food items.</p>
+                  </div>
+                  <div class="columns is-vcentered interpolation-panel">
+                    <div class="column  has-text-centered">
+                      <h5>Move Pasta Server into Pot</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--pasta_server.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Move Black Spatula into Pot</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--black_spatula.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Move White and Blue Spatula into Pot</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--white_spatula.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="columns is-vcentered interpolation-panel">
+                    <div class="column  has-text-centered">
+                      <h5>Pick up Bean</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--bean.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Pick up Lemon</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--lemon.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Pick up Cup</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/real_robot/interleave_vla--cup.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                
+                <br>
+                <h4 class="title is-6">Task Flexibility and Emergent Generalization Rollouts</h4>
+                  <div class="content has-text-justified">
+                    <p>Interleave-VLA shows emergent generalization to flexible instructions completely unseen during training: Internet images, cropped images, and hand-drawn sketches. Notably, no sketches are seen during training.</p>
+                  </div>
+                  <div class="columns is-vcentered interpolation-panel">
+                    <div class="column  has-text-centered">
+                      <h5>Put <img src="static/images/emergent_generalization_rollout/green_cube.png" alt="Green Cube" style="height: 2em; vertical-align: middle; display: inline-block;"> on Towel</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/emergent_generalization/interleave_vla--green_block_on_towel.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Put <img src="static/images/emergent_generalization_rollout/white_spatula.gif" alt="White Spatula" style="height: 2em; vertical-align: middle; display: inline-block;"> into Pot</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/emergent_generalization/interleave_vla--white_spatula_into_pot.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="column  has-text-centered">
+                      <h5>Put <img src="static/images/emergent_generalization_rollout/sketched_carrot.gif" alt="Sketched  Carrot" style="height: 3em; vertical-align: middle; display: inline-block;"> on Plate</h5>
+                      <video autoplay controls muted loop playsinline width="80%">
+                        <source src="static/videos/qualitative_results/emergent_generalization/interleave_vla--carrot_on_plate.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+
+                <br>
+                <br>
+
+                <h3 class="title is-4">Comparisons with State-of-the-Art Models</h3>
+                  <div class="content has-text-justified">
+                    <p>
+                      To highlight the significant generalization improvements, we present a qualitative comparison between Interleave-VLA and its base VLA relying solely on textual instructions across a range of evaluation tasks.
+                    </p>
+                  </div>
+
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>&pi;<sub>0</sub>:</b><br>Put Zucchini on Plate<br>(OOD: unseen target object from seen category)</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/bridge_widowx/pi0--zucchini_on_plate.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Put <img src="static/images/bridge_widowx_rollout/zucchini.png" alt="Zucchini" style="height: 2em; vertical-align: middle; display: inline-block;"> on Plate<br>(OOD: unseen target object from seen category)</h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/bridge_widowx/interleave_vla--zucchini_on_plate.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>&pi;<sub>0</sub>:</b><br>Put the Toy Dinosaur on Towel<br>(OOD: unseen target category)</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/bridge_widowx/pi0--toy_dinosaur_on_towel.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Put <img src="static/images/bridge_widowx_rollout/toy_dinosaur.png" alt="Toy Dinosaur" style="height: 2em; vertical-align: middle; display: inline-block;"> on Towel<br>(OOD: unseen target category)</h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/bridge_widowx/interleave_vla--toy_dinosaur_on_towel.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <br>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>OpenVLA:</b><br>Put all objects with the same profile as Blue and Purple Stripe Bowl into it</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/vima_bench/openvla--task15.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Put all objects with the same profile as <img src="static/images/vima_bench_rollout/blue_and_purple_stripe_bowl.jpg" alt="Blue and Purple Stripe Bowl" style="height: 1.5em; vertical-align: middle; display: inline-block;"> into it</h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/vima_bench/interleave_vla--task15.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>OpenVLA:</b><br>Put the Rainbow Triangle into the Blue Square</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/vima_bench/openvla--task1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Put <img src="static/images/vima_bench_rollout/rainbow_triangle.jpg" alt="Rainbow Triangle" style="height: 1.5em; vertical-align: middle; display: inline-block;"> into <img src="static/images/vima_bench_rollout/blue_square.jpg" alt="Blue Square" style="height: 1.5em; vertical-align: middle; display: inline-block;"></h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/vima_bench/interleave_vla--task1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <br>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>&pi;<sub>0</sub>:</b><br>Move Black Spatula into Pot<br>(OOD: unseen target object from seen category)</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/real_robot/pi0--black_spatula.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Move <img src="static/images/real_robot_rollout/black_spatula.png" alt="Black Spatula" style="height: 1.5em; vertical-align: middle; display: inline-block;"> into Pot<br>(OOD: unseen target object from seen category)</h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/real_robot/interleave_vla--black_spatula.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-vcentered interpolation-panel">
+                  <div class="column  has-text-centered">
+                    <h5><b>&pi;<sub>0</sub>:</b><br>Pick up Bean<br>(OOD: unseen target category)</h5>
+                    <h5 style="font-size:30px;">❌</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/real_robot/pi0--bean.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column  has-text-centered">
+                    <h5><b>Interleave-VLA:</b><br>Pick up <img src="static/images/real_robot_rollout/bean.png" alt="Bean" style="height: 1.5em; vertical-align: middle; display: inline-block;"><br>(OOD: unseen target category)</h5>
+                    <h5 style="font-size:30px;">✅</h5>
+                    <video autoplay controls muted loop playsinline width="80%">
+                      <source src="static/videos/comparisons_with_baselines/real_robot/interleave_vla--bean.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <br>
+      </section>
+
+      <footer class="footer">
+        <div class="container">
+          <!-- <div class="content has-text-centered">
+            <a class="icon-link" href="https://arxiv.org/pdf/2210.05714.pdf">
+              <i class="fas fa-file-pdf"></i>
+            </a>
+            <a class="icon-link" href="" class="external-link" disabled>
+              <i class="fab fa-github"></i>
+            </a>
+          </div> -->
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <div class="content">
+                <p> Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
+                    href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+                    International</a>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+</body>
+
+</html>
